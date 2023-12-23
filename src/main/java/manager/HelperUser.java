@@ -1,5 +1,6 @@
 package manager;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -30,6 +31,10 @@ public class HelperUser extends HelperBase{
 //        passwordInput.sendKeys(password);
         type(By.xpath("//input[last()]"),password);
     }
+    public void fillLoginRegistrationForm(User user){
+        type(By.name("email"), user.getEmail());
+        type(By.xpath("//input[last()]"), user.getPassword());
+    }
 
     public void submitLogin(){
         click(By.xpath("//button[text()='Login']"));
@@ -43,4 +48,5 @@ public class HelperUser extends HelperBase{
     public void logout() {
         click(By.xpath("//button[text()='Sign Out']"));
     }
+
 }
