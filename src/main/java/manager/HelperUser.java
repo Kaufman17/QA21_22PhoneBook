@@ -83,4 +83,10 @@ public class HelperUser extends HelperBase {
                 (wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")), "No Contacts here!"));
         return res;
     }
+
+    public void login(User user) {
+        openLoginRegistrationForm();
+        fillLoginRegistrationForm(user);
+        submitLogin();
+    }
 }
