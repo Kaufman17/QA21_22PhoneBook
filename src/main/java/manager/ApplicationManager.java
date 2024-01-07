@@ -19,6 +19,7 @@ public class ApplicationManager {
 
         helperUser = new HelperUser(wd);
         helperContact = new HelperContact(wd);
+
     }
 
     public HelperUser getHelperUser() {
@@ -29,6 +30,7 @@ public class ApplicationManager {
     public HelperContact getHelperContact() {
         return helperContact;
     }
+
 
     public void stop() {
         wd.quit();
