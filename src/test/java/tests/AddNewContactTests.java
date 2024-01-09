@@ -178,6 +178,7 @@ public class AddNewContactTests extends TestBase {
                     .build();
             app.getHelperContact().openContactForm();
             app.getHelperContact().fillContactForm(contact);
+            app.getHelperContact().getScreen("src/test/screenshots/screen-"+i+".png");
             //app.getHelperContact().pause(2500);
             app.getHelperContact().saveContact();
             Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));

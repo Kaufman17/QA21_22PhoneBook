@@ -1,10 +1,18 @@
 package manager;
 
+
+
+import com.google.common.io.Files;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+
 import java.util.List;
+
+import static java.nio.file.Files.*;
 
 public class HelperBase {
     WebDriver wd;
@@ -61,6 +69,7 @@ public class HelperBase {
         return false;
 
     }
+
     //********CW_07_01_2024_addNewContact************
     public void type(By locator, String text) {
         WebElement element = wd.findElement(locator);
@@ -81,5 +90,14 @@ public class HelperBase {
 
     }
 
+    public void getScreen(String link) {
+        TakesScreenshot takesScreenshot = (TakesScreenshot) wd;
+        File tmp = takesScreenshot.getScreenshotAs(OutputType.FILE);
+               try {
+                Files.copy(tmp, new File(link));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
+    }
 }
