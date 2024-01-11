@@ -1,6 +1,7 @@
 package manager;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Files;
 import org.openqa.selenium.*;
@@ -16,6 +17,7 @@ import static java.nio.file.Files.*;
 
 public class HelperBase {
     WebDriver wd;
+    Logger logger = LoggerFactory.getLogger(HelperBase.class);
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
@@ -77,7 +79,7 @@ public class HelperBase {
         element.clear();
         clearNew(element);
         if (text != null) {
-            System.out.println("hello");
+         //  System.out.println("hello");
             element.sendKeys(text);
         }
 
@@ -93,11 +95,24 @@ public class HelperBase {
     public void getScreen(String link) {
         TakesScreenshot takesScreenshot = (TakesScreenshot) wd;
         File tmp = takesScreenshot.getScreenshotAs(OutputType.FILE);
-               try {
-                Files.copy(tmp, new File(link));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            Files.copy(tmp, new File(link));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    public boolean isNoContactsHereDisplayed() {
+        WebDriverWait wait = new WebDriverWait(wd, 5);
+        boolean res = wait.until(ExpectedConditions.textToBePresentInElement
+                (wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")), "No Contacts here!"));
+        return res;
+    }
+
+    public String getMessage() {
+        WebDriverWait wait = new WebDriverWait(wd, 5);
+        wait.until(ExpectedConditions.visibilityOf(wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1"))));
+        return wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")).getText();
     }
 }
