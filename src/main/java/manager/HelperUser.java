@@ -21,6 +21,7 @@ public class HelperUser extends HelperBase {
 //        loginTab.click();
 
         click(By.cssSelector("a[href='/login']"));
+        logger.info("Open form by click button with locator By.cssSelector(\"a[href='/login']");
     }
 
     // public void fillLoginRegistrationForm(String email, String password){
@@ -39,6 +40,7 @@ public class HelperUser extends HelperBase {
 //        passwordInput.sendKeys(password);
         //   type(By.xpath("//input[last()]"),password);
         type(By.xpath("//input[last()]"), password);
+        // type(By.xpath("//input[la]"), password);
     }
 
     //  public void submitLogin(){
