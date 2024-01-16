@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeMethod;
+
 import java.lang.reflect.Method;
 
 public class TestBase {
@@ -13,9 +14,10 @@ public class TestBase {
     static ApplicationManager app = new ApplicationManager();
 
     @BeforeMethod
-    public void startLogger(Method m){
+    public void startLogger(Method m) {
         logger.info("Name of method ---> " + m.getName());
     }
+
     @BeforeSuite
     public void setUp() {
 
@@ -24,7 +26,6 @@ public class TestBase {
 
     @AfterSuite
     public void tearDown() {
-
       //  app.stop();
     }
 
