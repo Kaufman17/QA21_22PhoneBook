@@ -1,27 +1,58 @@
 package tests;
 
+import manager.DataProviderUser;
 import models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class LoginTests extends TestBase{
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class LoginTests extends TestBase {
     @BeforeMethod
-    public void preCondition(){
+    public void preCondition() {
         //if SingOut present --->logout
-        if(app.getHelperUser().isLogged()){
+        if (app.getHelperUser().isLogged()) {
             app.getHelperUser().logout();
 
             logger.info("Before method finish logout");
         }
     }
-    @Test
-    public void loginSuccess(){
-        logger.info("Start test with name `loginSuccess`");
-        logger.info("Test data ---> email: 'chara@gmail.com' & password: 'Chara12345$' ");
 
-        User user = new User().withEmail("chara@gmail.com").withPassword("Chara12345$");
+    // @Test(dataProvider = "loginData") body test
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUser.class)
+    public void loginSuccess(String email, String password) {
+        logger.info("Start test with name `loginSuccess`");
+        // logger.info("Test data ---> email: 'chara@gmail.com' & password: 'Chara12345$' ");
+        logger.info("Test data ---> email: " + email + "& password: " + password);
+        // User user = new User().withEmail("chara@gmail.com").withPassword("Chara12345$");
         app.getHelperUser().openLoginRegistrationForm();
+        // app.getHelperUser().fillLoginRegistrationForm(user);
+        app.getHelperUser().fillLoginRegistrationForm(email, password);
+        app.getHelperUser().submitLogin();
+
+        Assert.assertTrue(app.getHelperUser().isLogged());
+        logger.info("Assert check is Element button 'Sign Out' present");
+
+//        Assert.assertEquals();
+//        Assert.assertNotEquals();
+//        Assert.assertTrue();
+//        Assert.assertFalse();
+    }
+
+
+//    @Test
+//    public void loginSuccessModel() {
+//    logger.info("Test data ---> email: 'chara@gmail.com' & password: 'Chara12345$' ");
+    @Test(dataProvider = "loginModels", dataProviderClass = DataProviderUser.class)
+    public void loginSuccessModel(User user) {
+        logger.info("Test data ---> " + user.toString());
+        app.getHelperUser().openLoginRegistrationForm();
+        //  app.getHelperUser().fillLoginRegistrationForm("chara@gmail.com", "Chara12345$");
         app.getHelperUser().fillLoginRegistrationForm(user);
         app.getHelperUser().submitLogin();
 
@@ -36,24 +67,7 @@ public class LoginTests extends TestBase{
     }
 
     @Test
-    public void loginSuccessModel(){
-        logger.info("Test data ---> email: 'chara@gmail.com' & password: 'Chara12345$' ");
-        app.getHelperUser().openLoginRegistrationForm();
-        app.getHelperUser().fillLoginRegistrationForm("chara@gmail.com", "Chara12345$");
-        app.getHelperUser().submitLogin();
-
-        Assert.assertTrue(app.getHelperUser().isLogged());
-        logger.info("Assert check is Element button 'Sign Out' present");
-
-//        Assert.assertEquals();
-//        Assert.assertNotEquals();
-//        Assert.assertTrue();
-//        Assert.assertFalse();
-
-    }
-
-    @Test
-    public void loginWrongEmail(){
+    public void loginWrongEmail() {
         logger.info("Test data ---> email: 'maragmail.com' & password: 'Mmar123456$' ");
 
         app.getHelperUser().openLoginRegistrationForm();
@@ -65,7 +79,7 @@ public class LoginTests extends TestBase{
     }
 
     @Test
-    public void loginWrongPassword(){
+    public void loginWrongPassword() {
         logger.info("Test data ---> email: 'mara@gmail.com' & password: 'Mmar123' ");
 
         app.getHelperUser().openLoginRegistrationForm();
@@ -77,7 +91,7 @@ public class LoginTests extends TestBase{
     }
 
     @Test
-    public void loginUnregisteredUser(){
+    public void loginUnregisteredUser() {
         logger.info("Test data ---> email: 'luck@gmail.com' & password: 'Luck123456$' ");
 
         app.getHelperUser().openLoginRegistrationForm();

@@ -1,5 +1,6 @@
 package tests;
 
+import manager.DataProviderContact;
 import models.Contact;
 import models.User;
 import org.openqa.selenium.JavascriptExecutor;
@@ -165,17 +166,20 @@ public class AddNewContactTests extends TestBase {
 //
 //    }
 //********CW_07_01_2024_addNewContact************
-        @Test
-        public void addContactSuccessAllFields () {
-            int i = (int) (System.currentTimeMillis() / 1000 % 3600);
-            Contact contact = Contact.builder()
-                    .name("Tony" + i)
-                    .lastName("Stark")
-                    .address("NY")
-                    .phone("3565946" + i)
-                    .email("stark" + i + "@gmail.com")
-                    .description("all fields")
-                    .build();
+//        @Test
+//        public void addContactSuccessAllFields () {
+//            int i = (int) (System.currentTimeMillis() / 1000 % 3600);
+//            Contact contact = Contact.builder()
+//                    .name("Tony" + i)
+//                    .lastName("Stark")
+//                    .address("NY")
+//                    .phone("3565946" + i)
+//                    .email("stark" + i + "@gmail.com")
+//                    .description("all fields")
+//                    .build();
+@Test(dataProvider = "contactSuccess", dataProviderClass = DataProviderContact.class)
+public void addContactSuccessAllFields(Contact contact) {
+    int i = (int) (System.currentTimeMillis() / 1000 % 3600);
             logger.info("Tests run with data: --->"+contact.toString());
             app.getHelperContact().openContactForm();
             app.getHelperContact().fillContactForm(contact);
