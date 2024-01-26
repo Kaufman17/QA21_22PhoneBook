@@ -12,6 +12,52 @@ public class DataProviderContact {
 
         return list.iterator();
     }
+
+    @DataProvider
+    public Iterator<Object[]> contactWrongPhone() {
+        List<Object[]> list = new ArrayList<>();
+list.add(new Object[]{
+    Contact.builder()
+            .name("John")
+            .lastName("Wick")
+            .email("john@gmail.com")
+            .address("NY")
+            .phone("123")
+            .description("The best")
+            .build()
+        });
+        list.add(new Object[]{
+                Contact.builder()
+                        .name("John")
+                        .lastName("Wick")
+                        .email("john@gmail.com")
+                        .address("NY")
+                        .phone("12356059845489444989")
+                        .description("The best")
+                        .build()
+        });
+        list.add(new Object[]{
+                Contact.builder()
+                        .name("John")
+                        .lastName("Wick")
+                        .email("john@gmail.com")
+                        .address("NY")
+                        .phone("vvvvvvvvvvvv")
+                        .description("The best")
+                        .build()
+        });
+        list.add(new Object[]{
+                Contact.builder()
+                        .name("John")
+                        .lastName("Wick")
+                        .email("john@gmail.com")
+                        .address("NY")
+                        .phone("")
+                        .description("The best")
+                        .build()
+        });
+        return list.iterator();
+    }
 //build lombok
     @DataProvider
     public Iterator<Object[]> contactSuccess() {
