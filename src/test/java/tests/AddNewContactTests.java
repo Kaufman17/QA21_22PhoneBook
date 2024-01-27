@@ -189,7 +189,7 @@ public void addContactSuccessAllFields(Contact contact) {
             Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
             Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
         }
-    @Test
+    @Test(invocationCount = 10)
     public void addContactSuccessRequiredFields() {
         int i = (int) (System.currentTimeMillis() / 1000 % 3600);
         Contact contact = Contact.builder()
