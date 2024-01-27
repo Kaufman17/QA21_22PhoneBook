@@ -17,7 +17,7 @@ import static org.openqa.selenium.By.name;
 
 public class AddNewContactTests extends TestBase {
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void preConditions() {
         if (!app.getHelperUser().isLogged()) {
             app.getHelperUser().login(new User().withEmail("chara@gmail.com").withPassword("Chara12345$"));
@@ -189,7 +189,7 @@ public void addContactSuccessAllFields(Contact contact) {
             Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
             Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
         }
-    @Test(invocationCount = 10)
+    @Test (groups = {"smoke", "regress", "retest"})
     public void addContactSuccessRequiredFields() {
         int i = (int) (System.currentTimeMillis() / 1000 % 3600);
         Contact contact = Contact.builder()
